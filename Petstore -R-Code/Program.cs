@@ -1,4 +1,5 @@
 ﻿//aka.ms/new-console-template for more information
+using System;
 using System.Text.Json;
 
 //they're running the program, they obviously want to add at least 1 so dump them into it first?
@@ -69,12 +70,12 @@ while (userInput.ToLower() != "exit")
 
     else
 
-            {
-                Console.WriteLine("Invalid Selection.");
-                Console.WriteLine("Press 1 to add another product");
-                Console.WriteLine("Type 'exit' to quit");
-                userInput = Console.ReadLine();
-            }
+         {
+         Console.WriteLine("Invalid Selection.");
+         Console.WriteLine("Press 1 to add another product");
+         Console.WriteLine("Type 'exit' to quit");
+         userInput = Console.ReadLine();
+         }
 
 }
 
@@ -82,23 +83,23 @@ while (userInput.ToLower() != "exit")
 
 public class Product
 {
-    public string Name = "";
-    public decimal Price;
-    public int Quantity;
-    public string Description = "";
+    public string Name { get; set; }
+    public decimal Price { get; set; }
+    public int Quantity { get; set; }
+    public string Description { get; set; }
 
 }
 
 public class CatFood : Product
 {
-    public double WeightPounds;
-    public bool KittenFood;
+    public double WeightPounds { get; set; }
+    public bool KittenFood { get; set; }
 
 }
 
 public class DogLeash : Product
 {
-    public int LengthInches;
-    public string Material = "";
+    public int LengthInches { get; set; }
+    public string Material { get; set; }
 
 }

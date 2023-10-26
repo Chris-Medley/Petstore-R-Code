@@ -1,5 +1,6 @@
 ﻿//aka.ms/new-console-template for more information
 using System;
+using System.Runtime.CompilerServices;
 using System.Text.Json;
 
 //they're running the program, they obviously want to add at least 1 so dump them into it first?
@@ -20,7 +21,7 @@ while (userInput.ToLower() != "exit")
             CatFood catFoodn = new CatFood();
             Console.WriteLine("What's the name of your cat food?");
             catFoodn.Name = Console.ReadLine();
-            Console.WriteLine("What's the price of your cat food?");
+            Console.WriteLine("What's the price of your cat food?"); //need to put Try.Parse error logic in
             catFoodn.Price = decimal.Parse(Console.ReadLine());
             Console.WriteLine("What's the quantity of your cat food?");
             catFoodn.Quantity = int.Parse(Console.ReadLine());
@@ -37,12 +38,13 @@ while (userInput.ToLower() != "exit")
             Console.WriteLine("Type 'exit' to quit");
             userInput = Console.ReadLine();
         }
+
         else if (userChoice.ToLower() == "dog leash")
         {
             DogLeash dogLeashn = new DogLeash();
             Console.WriteLine("What's the name of your dog leash?");
             dogLeashn.Name = Console.ReadLine();
-            Console.WriteLine("What's the price of your dog leash?");
+            Console.WriteLine("What's the price of your dog leash?"); //need to put Try.Parse error logic in
             dogLeashn.Price = decimal.Parse(Console.ReadLine());
             Console.WriteLine("What's the quantity of your dog leash?");
             dogLeashn.Quantity = int.Parse(Console.ReadLine());
@@ -63,21 +65,27 @@ while (userInput.ToLower() != "exit")
 
         else
         {
+            Console.WriteLine(" ");
             Console.WriteLine("Invalid selection.");
+            Console.WriteLine(" ");
 
         }
     }
 
     else
-
          {
+         Console.WriteLine(" ");
          Console.WriteLine("Invalid Selection.");
+         Console.WriteLine(" ");
          Console.WriteLine("Press 1 to add another product");
          Console.WriteLine("Type 'exit' to quit");
          userInput = Console.ReadLine();
          }
 
 }
+
+Console.WriteLine(" ");
+Console.WriteLine("fin");
 
 
 
@@ -101,5 +109,10 @@ public class DogLeash : Product
 {
     public int LengthInches { get; set; }
     public string Material { get; set; }
+
+}
+public class ProductLogic
+{ 
+    private List<Product> _products = new List<Product>();
 
 }

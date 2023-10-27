@@ -31,9 +31,9 @@ while (userInput.ToLower() != "exit")
             catFoodn.WeightPounds = int.Parse(Console.ReadLine());
             Console.WriteLine("Is this kitten food?");
             catFoodn.KittenFood = bool.Parse(Console.ReadLine());
-
+            Console.WriteLine(" ");
             Console.WriteLine(JsonSerializer.Serialize(catFoodn));
-
+            Console.WriteLine(" ");
             Console.WriteLine("Press 1 to add a product");
             Console.WriteLine("Type 'exit' to quit");
             userInput = Console.ReadLine();
@@ -54,9 +54,9 @@ while (userInput.ToLower() != "exit")
             dogLeashn.LengthInches = int.Parse(Console.ReadLine());
             Console.WriteLine("What's the material of your dog leash?");
             dogLeashn.Material = Console.ReadLine();
-
+            Console.WriteLine(" ");
             Console.WriteLine(JsonSerializer.Serialize(dogLeashn));
-
+            Console.WriteLine(" ");
             Console.WriteLine("Press 1 to add a product");
             Console.WriteLine("Type 'exit' to quit");
             userInput = Console.ReadLine();

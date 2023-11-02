@@ -1,5 +1,7 @@
 ﻿//aka.ms/new-console-template for more information
+using PetstoreRCode;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Runtime.CompilerServices;
 using System.Security;
@@ -16,7 +18,8 @@ internal class Program
         //they're running the program, they obviously want to add at least 1 so dump them into it first?
         Console.WriteLine("Press 1 to add a product");
         Console.WriteLine("Press 2 to get all the products.");
-        Console.WriteLine("Press 3 to geta a item from the product list.");
+        Console.WriteLine("Press 3 to get a list of all the product names.");
+        Console.WriteLine("Press 4 to geta a item from the product list.");
         Console.WriteLine("Type 'exit' to quit");
         string userInput = Console.ReadLine();
 
@@ -90,15 +93,18 @@ internal class Program
                             catKittenFoodValid = true;
                         }
                     }
+
+                    //finish up
                     Console.WriteLine(" ");
                     productLogic.AddProducts(catFoodn);
                     Console.WriteLine(catFoodn.Name + " was added to the product list.");
-                    Console.WriteLine(productLogic.GetAllProducts());
+                    Console.WriteLine($"There are {productLogic.GetProductCount()} item(s) in the product list now."); 
                     //Console.WriteLine(JsonSerializer.Serialize(catFoodn)); //breakout wasn't happening here, look into it
                     Console.WriteLine(" ");
                     Console.WriteLine("Press 1 to add a product");
                     Console.WriteLine("Press 2 to get all the products.");
-                    Console.WriteLine("Press 3 to geta a item from the product list.");
+                    Console.WriteLine("Press 3 to get a list of all the product names.");
+                    Console.WriteLine("Press 4 to geta a item from the product list.");
                     Console.WriteLine("Type 'exit' to quit");
                     userInput = Console.ReadLine();
                 }
@@ -154,15 +160,18 @@ internal class Program
                     }
                     Console.WriteLine("What's the material of your dog leash?");
                     dogLeashn.Material = Console.ReadLine();
+
+                    //finish up
                     Console.WriteLine(" ");
                     productLogic.AddProducts(dogLeashn);
                     Console.WriteLine(dogLeashn.Name + " was added to the products list.");
-                    Console.WriteLine(productLogic.GetAllProducts());
+                    Console.WriteLine($"There are now {productLogic.GetProductCount()} available product(s).");
                     //Console.WriteLine(JsonSerializer.Serialize(dogLeashn)); //breakout wasn't happening here, look into it
                     Console.WriteLine(" ");
                     Console.WriteLine("Press 1 to add a product");
                     Console.WriteLine("Press 2 to get all the products.");
-                    Console.WriteLine("Press 3 to geta a item from the product list.");
+                    Console.WriteLine("Press 3 to get a list of all the product names.");
+                    Console.WriteLine("Press 4 to geta a item from the product list.");
                     Console.WriteLine("Type 'exit' to quit");
                     userInput = Console.ReadLine();
 
@@ -179,25 +188,37 @@ internal class Program
 
             else if (userInput == "2")
             {
+                Console.WriteLine($"There are now {productLogic.GetProductCount()} available product(s).");
+            }
+
+            else if (userInput == "3")
+            {
+                    //return list of names
+            }
+
+            else if (userInput == "4")
+            {
+
                 Console.WriteLine("Which product are you looking for?");
                 string userChoiceProduct = Console.ReadLine();
 
                 if (userChoiceProduct.ToLower() == "cat food")
                 {
+                    Console.WriteLine("What's the name of the cat food?");
+                    //print out names
                     string whichCatName = Console.ReadLine();
-                    Console.WriteLine(productLogic.GetCatFoodByName(whichCatName));
+                    Console.WriteLine(JsonSerializer.Serialize(productLogic.GetCatFoodByName(whichCatName)));
                 }
                 else if ((userChoiceProduct.ToLower() == "dog leash"))
                 {
+                    Console.WriteLine("What's the name of the dog leash?");
+                    //print out names
                     string whichDogName = Console.ReadLine();
-                    Console.WriteLine(productLogic.GetDogLeashByName(whichDogName));
+                    Console.WriteLine(JsonSerializer.Serialize(productLogic.GetDogLeashByName(whichDogName)));
                 }
-                else;
-            }
-
-            else if (userInput == "3")
-            {
-                productLogic.GetAllProducts();
+                else if (((userChoiceProduct.ToLower() == "exit"))) ;
+                { return; }
+                
             }
             else
 
@@ -207,7 +228,8 @@ internal class Program
                 Console.WriteLine(" ");
                 Console.WriteLine("Press 1 to add another product");
                 Console.WriteLine("Press 2 to get all the products.");
-                Console.WriteLine("Press 3 to geta a item from the product list.");
+                Console.WriteLine("Press 3 to get a list of all the product names.");
+                Console.WriteLine("Press 4 to geta a item from the product list.");
                 Console.WriteLine("Type 'exit' to quit");
                 userInput = Console.ReadLine();
             }
@@ -219,60 +241,5 @@ internal class Program
     }
 }
 
-public class ProductClass
-{
-    public string Name { get; set; }
-    public decimal Price { get; set; }
-    public int Quantity { get; set; }
-    public string Description { get; set; }
 
-}
-
-public class CatFoodClass : ProductClass
-{
-    public double WeightPounds { get; set; }
-    public bool KittenFood { get; set; }
-
-}
-
-public class DogLeashClass : ProductClass
-{
-    public int LengthInches { get; set; }
-    public string Material { get; set; }
-
-}
-public class ProductLogicClass
-{ 
-    private List<ProductClass> _products = new List<ProductClass>();
-    private Dictionary<string, DogLeashClass> _dogLeashDict = new Dictionary<string, DogLeashClass>();
-    private Dictionary<string, CatFoodClass> _catFoodDict = new Dictionary<string, CatFoodClass>();
-
-    public void AddProducts(ProductClass product)
-    { 
-        _products.Add(product); 
-        if (product is DogLeashClass)
-        {
-            _dogLeashDict.Add(product.Name, product as DogLeashClass);
-        }
-        else
-        {
-            _catFoodDict.Add(product.Name, product as CatFoodClass);
-        }
-    }
-        
-    public List<ProductClass> GetAllProducts()
-    {
-        return _products;
-    }
-
-    public DogLeashClass GetDogLeashByName(string dogName)
-    {
-        return _dogLeashDict[dogName];
-    }
-
-    public CatFoodClass GetCatFoodByName(string catName)
-    {
-        return _catFoodDict[catName];
-    }
-}
 

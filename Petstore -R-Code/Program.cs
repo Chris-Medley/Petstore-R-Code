@@ -27,16 +27,32 @@ internal class Program
             //add product
             if (userInput == "1")
             {
+                //chose between dog leash & cat food
                 Console.WriteLine("Cat food or dog leash");
                 string userChoice = Console.ReadLine();
 
-                //chose between dog leash & cat food
+                //cat food entry
                 if (userChoice.ToLower() == "cat food")
                 {
+                    //cat food entry
                     CatFoodClass catFoodn = new CatFoodClass();
                     Console.WriteLine("What's the name of your cat food?");
                     catFoodn.Name = Console.ReadLine();
                     Console.WriteLine("What's the price of your cat food?");
+                    /*
+                    try
+                    {
+                        decimal.TryParse(Console.ReadLine(), out decimal _catPriceTemp);
+                    }
+                    catch (FormatException)
+                    {
+                        Console.WriteLine("Price with(out) decimals, please.");
+                    }
+                    catch (ArgumentException)
+                    {
+                        Console.WriteLine("Price with(out) decimals, please.");
+                    }
+                    */
                     bool catPriceValid = false;
                     while (catPriceValid == false)
                     {
@@ -50,6 +66,7 @@ internal class Program
                             catPriceValid = true;
                         }
                     }
+
                     Console.WriteLine("What's the quantity of your cat food?");
                     bool catQtyValid = false;
                     while (catQtyValid == false)
@@ -109,7 +126,8 @@ internal class Program
                     Console.WriteLine("Type 'exit' to quit");
                     userInput = Console.ReadLine();
                 }
-
+                
+                //dog leash entry
                 else if (userChoice.ToLower() == "dog leash")
                 {
                     DogLeashClass dogLeashn = new DogLeashClass();
@@ -146,7 +164,8 @@ internal class Program
                     Console.WriteLine("What's the Description of your dog leash?");
                     dogLeashn.Description = Console.ReadLine();
                     Console.WriteLine("What's the length in inches of your dog leash?");
-                    bool dogLengthValid = false;
+
+                bool dogLengthValid = false;
                     while (dogLengthValid == false)
                     {
                         if (!int.TryParse(Console.ReadLine(), out int dogLeashLengthTemp))
@@ -159,6 +178,7 @@ internal class Program
                             dogLengthValid = true;
                         }
                     }
+
                     Console.WriteLine("What's the material of your dog leash?");
                     dogLeashn.Material = Console.ReadLine();
 
@@ -178,7 +198,7 @@ internal class Program
 
                 }
 
-                //error handling
+                //"error handling" but not really, need to keep watching and googling try-catch
                 else
                 {
                     Console.WriteLine(" ");
@@ -193,7 +213,7 @@ internal class Program
             {
                 Console.WriteLine($"There are now {productLogic.GetProductCount()} available product(s)."); //return up a level
                 Console.WriteLine(" ");
-
+                
                 Console.WriteLine("Press 1 to add another product");
                 Console.WriteLine("Press 2 to get all the products.");
                 Console.WriteLine("Press 3 to get a list of all the product names.");
@@ -229,9 +249,14 @@ internal class Program
                     Console.WriteLine("What's the name of the cat food?");
                     Console.WriteLine(JsonSerializer.Serialize(productLogic.GetCatProductNames())); //pull this out of dictionary better?
                     string whichCatName = Console.ReadLine();
-                    Console.WriteLine(JsonSerializer.Serialize(productLogic.GetCatFoodByName(whichCatName)));
-                    Console.WriteLine(" ");
-                    Console.WriteLine("Invalid Selection.");
+                    if (productLogic.GetCatFoodByName(whichCatName) == null)
+                    {
+                        Console.WriteLine("Product couldn't be found.");
+                    }
+                    else
+                    {
+                        Console.WriteLine(JsonSerializer.Serialize(productLogic.GetCatFoodByName(whichCatName)));
+                    }
                     Console.WriteLine(" ");
                     Console.WriteLine("Press 1 to add another product");
                     Console.WriteLine("Press 2 to get all the products.");
@@ -245,9 +270,15 @@ internal class Program
                     Console.WriteLine("What's the name of the dog leash?");
                     Console.WriteLine(JsonSerializer.Serialize(productLogic.GetDogProductNames())); //pull this out of dictionary better?
                     string whichDogName = Console.ReadLine();
-                    Console.WriteLine(JsonSerializer.Serialize(productLogic.GetDogLeashByName(whichDogName)));
-                    Console.WriteLine(" ");
-                    Console.WriteLine("Invalid Selection.");
+                    if (productLogic.GetDogLeashByName(whichDogName) == null)
+                    {
+                        Console.WriteLine("Product couldn't be found.");
+                    }
+                    else
+                    {
+                        Console.WriteLine(JsonSerializer.Serialize(productLogic.GetDogLeashByName(whichDogName)));
+                    }
+                    
                     Console.WriteLine(" ");
                     Console.WriteLine("Press 1 to add another product");
                     Console.WriteLine("Press 2 to get all the products.");

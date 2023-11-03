@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq.Expressions;
 
 namespace PetstoreRCode
-    {
-public class ProductLogicClass
 {
-    private List<ProductClass> _productsConst;
-    private List<string> _productsNameConst;
-    private Dictionary<string, DogLeashClass> _dogLeashDictConst;
-    private Dictionary<string, CatFoodClass> _catFoodDictConst;
-    private List<string> _catFoodListNames;
-    private List<string> _dogLeashListNames;
+    public class ProductLogicClass
+    {
+        private List<ProductClass> _productsConst;
+        private List<string> _productsNameConst;
+        private Dictionary<string, DogLeashClass> _dogLeashDictConst;
+        private Dictionary<string, CatFoodClass> _catFoodDictConst;
+        private List<string> _catFoodListNames;
+        private List<string> _dogLeashListNames;
 
+        //add temporary constructors
         public ProductLogicClass()
         {
             _productsConst = new List<ProductClass>();
@@ -25,53 +22,76 @@ public class ProductLogicClass
             _catFoodListNames = new List<string>();
         }
 
+        //add products to various dictionaries & lists (including name list hack)
         public void AddProducts(ProductClass product)
-    {
-        if (product is DogLeashClass)
         {
-            _dogLeashDictConst.Add(product.Name, product as DogLeashClass);
-            _dogLeashListNames.Add(product.Name);
+            if (product is DogLeashClass)
+            {
+                _dogLeashDictConst.Add(product.Name, product as DogLeashClass);
+                _dogLeashListNames.Add(product.Name);
+            }
+            if (product is CatFoodClass)
+            {
+                _catFoodDictConst.Add(product.Name, product as CatFoodClass);
+                _catFoodListNames.Add(product.Name);
+            }
+            _productsConst.Add(product);
+            _productsNameConst.Add(product.Name);
         }
-        if (product is CatFoodClass)
+
+        //lookup all products
+        public List<ProductClass> GetAllProducts()
         {
-            _catFoodDictConst.Add(product.Name, product as CatFoodClass);
-            _catFoodListNames.Add(product.Name);
+            return _productsConst;
         }
-        _productsConst.Add(product);
-        _productsNameConst.Add(product.Name);
-    }
 
-    public List<ProductClass> GetAllProducts()
-    {
-        return _productsConst;
-    }
+        //lookup dog leashes by name
+        public DogLeashClass GetDogLeashByName(string dogLeashName)
+        {
+            try
+            {
+                return _dogLeashDictConst[dogLeashName];
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
 
-    public DogLeashClass GetDogLeashByName(string dogLeashName)
-    {
-        return _dogLeashDictConst[dogLeashName];
-    }
 
-    public CatFoodClass GetCatFoodByName(string catFoodName)
-    {
-        return _catFoodDictConst[catFoodName];
-    }
+        //lookup cat food by name
+        public CatFoodClass GetCatFoodByName(string catFoodName)
+        {
+            try
+            {
+                return _catFoodDictConst[catFoodName];
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
 
-    public int GetProductCount()
-    {
-        return _productsConst.Count;
-    }
+        //get count of all products
+        public int GetProductCount()
+        {
+            return _productsConst.Count;
+        }
 
-    public List<string> GetProductNames()
+        //get list of all product names (hacked)
+        public List<string> GetProductNames()
         {
             return _productsNameConst;
         }
 
-    public List<string> GetCatProductNames()
+        //get list of cat food names
+        public List<string> GetCatProductNames()
         {
             return _catFoodListNames;
         }
 
-    public List<string> GetDogProductNames()
+        //get list of dog leash names
+        public List<string> GetDogProductNames()
         {
             return _dogLeashListNames;
         }

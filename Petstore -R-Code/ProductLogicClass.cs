@@ -2,7 +2,7 @@
 
 namespace PetstoreRCode
 {
-    public class ProductLogicClass
+    public class ProductLogicClass : IProductLogic
     {
         private List<ProductClass> _productsConst;
         private List<string> _productsNameConst;
@@ -35,6 +35,7 @@ namespace PetstoreRCode
                 _catFoodDictConst.Add(product.Name, product as CatFoodClass);
                 _catFoodListNames.Add(product.Name);
             }
+            //this is gross, fix
             _productsConst.Add(product);
             _productsNameConst.Add(product.Name);
         }
@@ -52,7 +53,7 @@ namespace PetstoreRCode
             {
                 return _dogLeashDictConst[dogLeashName];
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
                 return null;
             }
@@ -66,7 +67,7 @@ namespace PetstoreRCode
             {
                 return _catFoodDictConst[catFoodName];
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
                 return null;
             }
@@ -94,6 +95,11 @@ namespace PetstoreRCode
         public List<string> GetDogProductNames()
         {
             return _dogLeashListNames;
+        }
+
+        public List<string> GetOnlyInStockProducts()
+        {
+            return _productsConst.Where(x => x.Quantity > 0).Select(x => x.Name).ToList();
         }
     }
 }

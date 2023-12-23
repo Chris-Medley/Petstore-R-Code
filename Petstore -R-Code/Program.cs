@@ -13,15 +13,15 @@ using System.Text.Json;
 
 internal class Program
 {
-    public static void Main(string[] args)
+    private static void Main(string[] args)
     {
-        var productLogicConst = new ProductLogicClass();
+        ProductLogicClass _productLogicConst = new ProductLogicClass();
         string userInput;
 
         Console.WriteLine("Press 1 to add another product");
         Console.WriteLine("Press 2 to get all the products.");
         Console.WriteLine("Press 3 to get a list of all the product names.");
-        Console.WriteLine("Press 4 to get a item from the product list.");
+        Console.WriteLine("Press 4 to see an item from the product list.");
         Console.WriteLine("Press 5 to get a list of in stock items.");
         Console.WriteLine("Type 'exit' to quit");
         userInput = Console.ReadLine();
@@ -120,15 +120,15 @@ internal class Program
 
                     //finish up
                     Console.WriteLine(" ");
-                    productLogicConst.AddProducts(catFoodn);
+                    _productLogicConst.AddProducts(catFoodn);
                     Console.WriteLine(catFoodn.Name + " was added to the product list.");
-                    Console.WriteLine($"There are {productLogicConst.GetProductCount()} item(s) in the product list now.");
+                    Console.WriteLine($"There are {_productLogicConst.GetProductCount()} item(s) in the product list now.");
                     //Console.WriteLine(JsonSerializer.Serialize(catFoodn)); //breakout wasn't happening here, look into it
                     Console.WriteLine(" ");
                     Console.WriteLine("Press 1 to add another product");
                     Console.WriteLine("Press 2 to get all the products.");
                     Console.WriteLine("Press 3 to get a list of all the product names.");
-                    Console.WriteLine("Press 4 to get a item from the product list.");
+                    Console.WriteLine("Press 4 to see an item from the product list.");
                     Console.WriteLine("Press 5 to get a list of in stock items.");
                     Console.WriteLine("Type 'exit' to quit");
                     userInput = Console.ReadLine();
@@ -191,15 +191,15 @@ internal class Program
 
                     //finish up
                     Console.WriteLine(" ");
-                    productLogicConst.AddProducts(dogLeashn);
+                    _productLogicConst.AddProducts(dogLeashn);
                     Console.WriteLine(dogLeashn.Name + " was added to the products list.");
-                    Console.WriteLine($"There are now {productLogicConst.GetProductCount()} available product(s).");
+                    Console.WriteLine($"There are now {_productLogicConst.GetProductCount()} available product(s).");
                     //Console.WriteLine(JsonSerializer.Serialize(dogLeashn)); //breakout wasn't happening here, look into it
                     Console.WriteLine(" ");
                     Console.WriteLine("Press 1 to add another product");
                     Console.WriteLine("Press 2 to get all the products.");
                     Console.WriteLine("Press 3 to get a list of all the product names.");
-                    Console.WriteLine("Press 4 to get a item from the product list.");
+                    Console.WriteLine("Press 4 to see an item from the product list.");
                     Console.WriteLine("Press 5 to get a list of in stock items.");
                     Console.WriteLine("Type 'exit' to quit");
                     userInput = Console.ReadLine();
@@ -219,13 +219,13 @@ internal class Program
             //how many products exit
             else if (userInput == "2")
             {
-                Console.WriteLine($"There are now {productLogicConst.GetProductCount()} available product(s)."); //return up a level
+                Console.WriteLine($"There are now {_productLogicConst.GetProductCount()} available product(s)."); //return up a level
                 Console.WriteLine(" ");
 
                 Console.WriteLine("Press 1 to add another product");
                 Console.WriteLine("Press 2 to get all the products.");
                 Console.WriteLine("Press 3 to get a list of all the product names.");
-                Console.WriteLine("Press 4 to get a item from the product list.");
+                Console.WriteLine("Press 4 to see an item from the product list.");
                 Console.WriteLine("Press 5 to get a list of in stock items.");
                 Console.WriteLine("Type 'exit' to quit");
                 userInput = Console.ReadLine();
@@ -235,13 +235,13 @@ internal class Program
             else if (userInput == "3")
             {
                 //return list of names
-                productLogicConst.GetProductNames().ForEach(p => Console.WriteLine(p)); //return up a level
+                _productLogicConst.GetProductNames().ForEach(p => Console.WriteLine(p)); //return up a level
                 Console.WriteLine(" ");
 
                 Console.WriteLine("Press 1 to add another product");
                 Console.WriteLine("Press 2 to get all the products.");
                 Console.WriteLine("Press 3 to get a list of all the product names.");
-                Console.WriteLine("Press 4 to get a item from the product list.");
+                Console.WriteLine("Press 4 to see an item from the product list.");
                 Console.WriteLine("Press 5 to get a list of in stock items.");
                 Console.WriteLine("Type 'exit' to quit");
                 userInput = Console.ReadLine();
@@ -257,21 +257,21 @@ internal class Program
                 if (userChoiceProduct.ToLower() == "cat food")
                 {
                     Console.WriteLine("What's the name of the cat food?");
-                    Console.WriteLine(JsonSerializer.Serialize(productLogicConst.GetCatProductNames())); //pull this out of dictionary better?
+                    Console.WriteLine(JsonSerializer.Serialize(_productLogicConst.GetCatProductNames())); //pull this out of dictionary better?
                     string whichCatName = Console.ReadLine();
-                    if (productLogicConst.GetCatFoodByName(whichCatName) == null)
+                    if (_productLogicConst.GetCatFoodByName(whichCatName) == null)
                     {
                         Console.WriteLine("Product couldn't be found.");
                     }
                     else
                     {
-                        Console.WriteLine(JsonSerializer.Serialize(productLogicConst.GetCatFoodByName(whichCatName)));
+                        Console.WriteLine(JsonSerializer.Serialize(_productLogicConst.GetCatFoodByName(whichCatName)));
                     }
                     Console.WriteLine(" ");
                     Console.WriteLine("Press 1 to add another product");
                     Console.WriteLine("Press 2 to get all the products.");
                     Console.WriteLine("Press 3 to get a list of all the product names.");
-                    Console.WriteLine("Press 4 to get a item from the product list.");
+                    Console.WriteLine("Press 4 to see an item from the product list.");
                     Console.WriteLine("Press 5 to get a list of in stock items.");
                     Console.WriteLine("Type 'exit' to quit");
                     userInput = Console.ReadLine();
@@ -279,22 +279,22 @@ internal class Program
                 else if (userChoiceProduct.ToLower() == "dog leash")
                 {
                     Console.WriteLine("What's the name of the dog leash?");
-                    Console.WriteLine(JsonSerializer.Serialize(productLogicConst.GetDogProductNames())); //pull this out of dictionary better?
+                    Console.WriteLine(JsonSerializer.Serialize(_productLogicConst.GetDogProductNames())); //pull this out of dictionary better?
                     string whichDogName = Console.ReadLine();
-                    if (productLogicConst.GetDogLeashByName(whichDogName) == null)
+                    if (_productLogicConst.GetDogLeashByName(whichDogName) == null)
                     {
                         Console.WriteLine("Product couldn't be found.");
                     }
                     else
                     {
-                        Console.WriteLine(JsonSerializer.Serialize(productLogicConst.GetDogLeashByName(whichDogName)));
+                        Console.WriteLine(JsonSerializer.Serialize(_productLogicConst.GetDogLeashByName(whichDogName)));
                     }
 
                     Console.WriteLine(" ");
                     Console.WriteLine("Press 1 to add another product");
                     Console.WriteLine("Press 2 to get all the products.");
                     Console.WriteLine("Press 3 to get a list of all the product names.");
-                    Console.WriteLine("Press 4 to get a item from the product list.");
+                    Console.WriteLine("Press 4 to see an item from the product list.");
                     Console.WriteLine("Press 5 to get a list of in stock items.");
                     Console.WriteLine("Type 'exit' to quit");
                     userInput = Console.ReadLine();
@@ -311,7 +311,7 @@ internal class Program
                     Console.WriteLine("Press 1 to add another product");
                     Console.WriteLine("Press 2 to get all the products.");
                     Console.WriteLine("Press 3 to get a list of all the product names.");
-                    Console.WriteLine("Press 4 to get a item from the product list.");
+                    Console.WriteLine("Press 4 to see an item from the product list.");
                     Console.WriteLine("Press 5 to get a list of in stock items.");
                     Console.WriteLine("Type 'exit' to quit");
                     userInput = Console.ReadLine();
@@ -322,7 +322,7 @@ internal class Program
             {
                 //return list of names of things with QTY > 0
                 Console.WriteLine("The following items are in stock.");
-                var instock = productLogicConst.GetOnlyInStockProducts();
+                var instock = _productLogicConst.GetOnlyInStockProducts();
                 foreach (var item in instock)
                 {
                     Console.WriteLine(item);
@@ -332,20 +332,20 @@ internal class Program
                 Console.WriteLine("Press 1 to add another product");
                 Console.WriteLine("Press 2 to get all the products.");
                 Console.WriteLine("Press 3 to get a list of all the product names.");
-                Console.WriteLine("Press 4 to get a item from the product list.");
+                Console.WriteLine("Press 4 to see an item from the product list.");
                 Console.WriteLine("Press 5 to get a list of in stock items.");
                 Console.WriteLine("Type 'exit' to quit");
                 userInput = Console.ReadLine();
             }
             else 
-        {
+            {
                 Console.WriteLine(" ");
                 Console.WriteLine("Invalid Selection.");
                 Console.WriteLine(" ");
                 Console.WriteLine("Press 1 to add another product");
                 Console.WriteLine("Press 2 to get all the products.");
                 Console.WriteLine("Press 3 to get a list of all the product names.");
-                Console.WriteLine("Press 4 to get a item from the product list.");
+                Console.WriteLine("Press 4 to see an item from the product list.");
                 Console.WriteLine("Press 5 to get a list of in stock items.");
                 Console.WriteLine("Type 'exit' to quit");
                 userInput = Console.ReadLine();

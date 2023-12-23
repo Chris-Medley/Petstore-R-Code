@@ -76,7 +76,8 @@ namespace PetstoreRCode
         //get count of all products
         public int GetProductCount()
         {
-            return _productsConst.Count;
+            return _catFoodDictConst.Count + _dogLeashDictConst.Count;
+            //return _productsConst.Count;
         }
 
         //get list of all product names (hacked)
